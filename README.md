@@ -15,6 +15,8 @@ A full-stack app for creating and viewing custom quizzes. Pixel-art look with a 
     - **Checkbox:** several options, one or more correct
 - Quiz list with question counts and delete (two-step confirmation)
 - Quiz page where you can answer the questions and compare with the correct answers
+- Light/dark theme switcher
+- Edit an existing quiz (title and questions)
 
 ## Project structure
 
@@ -134,6 +136,7 @@ Base URL: `http://localhost:4000`
 | `GET`    | `/quizzes`      | List quizzes (`id`, `title`, `createdAt`, `questionsCount`) | `200`   |
 | `GET`    | `/quizzes/:id`  | Get a quiz with all its questions                | `200`   |
 | `DELETE` | `/quizzes/:id`  | Delete a quiz                                    | `204`   |
+| `PUT`    | `/quizzes/:id`  | Replace a quiz (same body as `POST`)             | `200`   |
 | `GET`    | `/health`       | Health check                                     | `200`   |
 
 Request body for `POST /quizzes`:
@@ -158,3 +161,4 @@ Errors:
 | `/quizzes`       | Quiz list, delete                             |
 | `/quizzes/[id]`  | Answer the questions and compare with answers |
 | `/create`        | Create a quiz                                 |
+| `/quizzes/[id]/edit` | Edit a quiz                               |
