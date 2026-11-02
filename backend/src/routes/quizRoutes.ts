@@ -1,0 +1,6 @@
+import {Router} from 'express';
+import * as quizController from '../controllers/quizController';
+
+export const quizRouter = Router();
+
+quizRouter.post('/', quizController.createQuiz);
