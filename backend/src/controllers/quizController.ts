@@ -26,3 +26,25 @@ export async function getQuizzes(_req: Request, res: Response, next: NextFunctio
         next(error);
     }
 }
+
+export async function getQuizById(req: Request, res: Response, next: NextFunction) {
+    try {
+        const id = Number(req.params.id);
+
+        if (!Number.isInteger(id) || id < 1) {
+            res.status(400).json({message: 'Invalid quiz id'});
+            return;
+        }
+
+        const quiz = await quizService.getQuizById(id);
+
+        if (!quiz) {
+            res.status(404).json({message: 'Quiz not found'});
+            return;
+        }
+
+        res.json(quiz);
+    } catch (error) {
+        next(error);
+    }
+}
