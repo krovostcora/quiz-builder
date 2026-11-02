@@ -48,3 +48,25 @@ export async function getQuizById(req: Request, res: Response, next: NextFunctio
         next(error);
     }
 }
+
+export async function deleteQuiz(req: Request, res: Response, next: NextFunction) {
+    try {
+        const id = Number(req.params.id);
+
+        if (!Number.isInteger(id) || id < 1) {
+            res.status(400).json({message: 'Invalid quiz id'});
+            return;
+        }
+
+        const deleted = await quizService.deleteQuiz(id);
+
+        if (!deleted) {
+            res.status(404).json({message: 'Quiz not found'});
+            return;
+        }
+
+        res.status(204).send();
+    } catch (error) {
+        next(error);
+    }
+}

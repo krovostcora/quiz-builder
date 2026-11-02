@@ -8,3 +8,5 @@ quizRouter.post('/', quizController.createQuiz);
 quizRouter.get('/', quizController.getQuizzes);
 
 quizRouter.get('/:id', quizController.getQuizById);
+
+quizRouter.delete('/:id', quizController.deleteQuiz);
