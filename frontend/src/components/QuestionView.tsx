@@ -24,7 +24,7 @@ const TYPE_LABELS: Record<Question['type'], string> = {
 };
 
 const STATE_CLASSES: Record<ChoiceState, string> = {
-    idle: 'bg-white hover:bg-mint-100',
+    idle: 'bg-surface hover:bg-mint-100',
     selected: 'bg-mint-100',
     correct: 'bg-mint-200',
     missed: 'bg-mint-200',
@@ -95,7 +95,7 @@ function ChoiceRow({
                             ? state === 'wrong'
                                 ? 'bg-danger-dark'
                                 : 'bg-violet-pixel'
-                            : 'bg-white'
+                            : 'bg-surface'
                     }`}
                 >
           {checked && <span className="h-2 w-2 bg-white" />}

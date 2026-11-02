@@ -125,7 +125,7 @@ export default function QuizForm() {
                 {submitError && (
                     <p
                         role="alert"
-                        className="border-4 border-ink bg-white px-3 py-2 text-danger-dark"
+                        className="border-4 border-ink bg-surface px-3 py-2 text-danger-dark"
                     >
                         {submitError}
                     </p>

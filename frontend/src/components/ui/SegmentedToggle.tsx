@@ -17,7 +17,7 @@ export default function SegmentedToggle<T extends string | boolean>({
         <div
             role="radiogroup"
             aria-label={label}
-            className={`flex border-4 border-ink bg-white shadow-pixel-sm ${className}`}
+            className={`flex border-4 border-ink bg-surface shadow-pixel-sm ${className}`}
         >
             {options.map((option, index) => {
                 const active = option.value === value;
@@ -34,7 +34,7 @@ export default function SegmentedToggle<T extends string | boolean>({
                         } ${
                             active
                                 ? 'bg-violet-pixel text-white'
-                                : 'bg-white text-ink hover:bg-mint-100'
+                                : 'bg-surface text-ink hover:bg-mint-100'
                         }`}
                     >
                         {option.label}

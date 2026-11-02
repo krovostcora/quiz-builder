@@ -23,6 +23,9 @@ export const metadata: Metadata = {
     description: 'Create and browse your quizzes',
 };
 
+// Runs before first paint: saved theme, otherwise the system one
+const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.dataset.theme=t}catch(e){}})();`;
+
 export default function RootLayout({
                                        children,
                                    }: Readonly<{ children: React.ReactNode }>) {
@@ -32,8 +35,13 @@ export default function RootLayout({
             className={`${pressStart.variable} ${vt323.variable}`}
             suppressHydrationWarning
         >
+        <head>
+            <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        </head>
         <body className="flex min-h-screen flex-col" suppressHydrationWarning>
-        <Suspense fallback={<div className="h-20 border-b-4 border-ink bg-mint-200" />}>
+        <Suspense
+            fallback={<div className="h-20 border-b-4 border-ink bg-mint-200" />}
+        >
             <Header />
         </Suspense>
         <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-8">

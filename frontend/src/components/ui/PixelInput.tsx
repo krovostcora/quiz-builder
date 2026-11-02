@@ -28,7 +28,7 @@ export default function PixelInput({
         id={inputId}
         aria-invalid={error ? true : undefined}
         aria-describedby={error ? errorId : undefined}
-        className={`font-body text-ink placeholder:text-ink-soft/60 focus:bg-mint-50 w-full border-4 bg-white px-3 py-2 text-xl ${
+        className={`font-body text-ink placeholder:text-ink-soft/60 focus:bg-mint-50 w-full border-4 bg-surface px-3 py-2 text-xl ${
           error ? 'border-danger-dark' : 'border-ink'
         } ${className}`}
         {...props}

@@ -69,7 +69,7 @@ export default function QuizCardMenu({
                     setOpen((value) => !value);
                     setConfirming(false);
                 }}
-                className="flex h-8 w-8 cursor-pointer items-center justify-center border-2 border-ink bg-white text-ink hover:bg-mint-100 disabled:pointer-events-none disabled:opacity-50"
+                className="flex h-8 w-8 cursor-pointer items-center justify-center border-2 border-ink bg-surface text-ink hover:bg-mint-100 disabled:pointer-events-none disabled:opacity-50"
             >
                 <DotsIcon />
             </button>
@@ -77,7 +77,7 @@ export default function QuizCardMenu({
             {open && (
                 <div
                     role="menu"
-                    className="absolute top-full right-0 z-10 mt-2 border-4 border-ink bg-white p-2 shadow-pixel"
+                    className="absolute top-full right-0 z-10 mt-2 border-4 border-ink bg-surface p-2 shadow-pixel"
                 >
                     <PixelButton
                         role="menuitem"

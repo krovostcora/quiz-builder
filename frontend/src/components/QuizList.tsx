@@ -38,7 +38,7 @@ export default function QuizList({ initialQuizzes }: QuizListProps) {
 
     if (quizzes.length === 0) {
         return (
-            <div className="flex flex-col items-center gap-6 border-4 border-dashed border-ink bg-white px-4 py-12 text-center">
+            <div className="flex flex-col items-center gap-6 border-4 border-dashed border-ink bg-surface px-4 py-12 text-center">
         <span className="text-ink-soft">
           <EmptyFolderIcon />
         </span>
@@ -55,7 +55,7 @@ export default function QuizList({ initialQuizzes }: QuizListProps) {
             {error && (
                 <p
                     role="alert"
-                    className="border-4 border-danger-dark bg-white px-4 py-3 text-xl text-danger-dark"
+                    className="border-4 border-danger-dark bg-surface px-4 py-3 text-xl text-danger-dark"
                 >
                     {error}
                 </p>
