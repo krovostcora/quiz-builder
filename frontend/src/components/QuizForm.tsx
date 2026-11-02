@@ -68,6 +68,8 @@ export default function QuizForm() {
         try {
             await createQuiz(toPayload(values));
             router.push('/quizzes');
+            // Refetch server data so the new quiz appears in the list
+            router.refresh();
         } catch (error) {
             setSubmitError(
                 error instanceof ApiError

@@ -13,14 +13,15 @@ export const metadata: Metadata = {
 async function QuizzesContent() {
     const quizzes = await getQuizzes();
 
-    return <QuizList initialQuizzes={quizzes} />;
+    // Key remounts the list when quizzes change, so its local state resets
+    const listKey = quizzes.map((quiz) => quiz.id).join('-');
+
+    return <QuizList key={listKey} initialQuizzes={quizzes} />;
 }
 
 function QuizzesFallback() {
     return (
-        <p className="font-pixel text-xs text-ink-soft animate-pulse">
-            Loading...
-        </p>
+        <p className="animate-pulse font-pixel text-xs text-ink-soft">Loading...</p>
     );
 }
 
