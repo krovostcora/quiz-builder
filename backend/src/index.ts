@@ -9,16 +9,18 @@ dotenv.config();
 
 const app = express();
 const port = Number(process.env.PORT) || 4000;
+const clientUrl = process.env.CLIENT_URL ?? 'http://localhost:3000';
 
-app.use(cors({origin: process.env.CLIENT_URL}));
+app.use(cors({origin: clientUrl, methods: ['GET', 'POST', 'DELETE']}));
 app.use(express.json());
-app.use('/quizzes', quizRouter);
-app.use(notFoundHandler);
-app.use(errorHandler);
 
 app.get('/health', (_req, res) => {
     res.json({status: 'ok'});
 });
+
+app.use('/quizzes', quizRouter);
+app.use(notFoundHandler);
+app.use(errorHandler);
 
 async function start(): Promise<void> {
     await connectDb();
