@@ -93,6 +93,20 @@ Scripts:
 | `npm run lint`   | Run ESLint                   |
 | `npm run format` | Run Prettier                 |
 
+## Run with Docker
+
+Requires Docker with Compose. From the repository root:
+
+```bash
+docker compose up --build
+```
+
+- Frontend: <http://localhost:3000>
+- Backend: <http://localhost:4000>
+
+Add the example quiz: `docker compose exec backend node dist/seed.js`.
+Data is stored in the `quiz-data` volume. To reset it: `docker compose down -v`.
+
 ## Database
 
 SQLite is used, so no separate database server is needed. The database file is created at the path from `DB_STORAGE` (by default `backend/database.sqlite`). To start from scratch, stop the backend and delete that file.
