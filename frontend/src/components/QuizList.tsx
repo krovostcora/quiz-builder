@@ -13,6 +13,11 @@ interface QuizListProps {
   initialQuizzes: QuizListItem[];
 }
 
+const dateFormatter = new Intl.DateTimeFormat('en-GB', {
+  dateStyle: 'medium',
+  timeZone: 'UTC',
+});
+
 export default function QuizList({ initialQuizzes }: QuizListProps) {
   const [quizzes, setQuizzes] = useState(initialQuizzes);
   const [deletingId, setDeletingId] = useState<number | null>(null);
@@ -66,7 +71,7 @@ export default function QuizList({ initialQuizzes }: QuizListProps) {
           <li key={quiz.id}>
             <PixelCard
               className="h-full"
-              title={quiz.createdAt.slice(0, 10)}
+              title={<h2>{quiz.title}</h2>}
               actions={
                 <QuizCardMenu
                   disabled={deletingId === quiz.id}
@@ -76,10 +81,14 @@ export default function QuizList({ initialQuizzes }: QuizListProps) {
               }
             >
               <div className="flex flex-col gap-4">
-                <h2 className="font-pixel text-sm leading-relaxed break-words">{quiz.title}</h2>
-                <p className="text-ink-soft text-xl">
-                  {quiz.questionsCount} {quiz.questionsCount === 1 ? 'question' : 'questions'}
-                </p>
+                <div className="flex flex-col gap-1">
+                  <p className="text-xl">
+                    {quiz.questionsCount} {quiz.questionsCount === 1 ? 'question' : 'questions'}
+                  </p>
+                  <p className="text-ink-soft text-lg">
+                    Created {dateFormatter.format(new Date(quiz.createdAt))}
+                  </p>
+                </div>
                 <Link
                   href={`/quizzes/${quiz.id}`}
                   className={pixelButtonClasses('default', 'sm', 'self-start')}

@@ -26,7 +26,9 @@ export default function PixelCard({
       <div
         className={`border-ink flex min-h-6 items-center justify-between gap-2 border-b-4 px-3 py-2 ${strips[strip]}`}
       >
-        <span className="font-pixel truncate text-[10px] uppercase">{title}</span>
+        <div className="font-pixel min-w-0 text-[10px] leading-relaxed break-words uppercase">
+          {title}
+        </div>
         {actions && <div className="flex shrink-0 items-center">{actions}</div>}
       </div>
       <div className="p-4">{children}</div>
