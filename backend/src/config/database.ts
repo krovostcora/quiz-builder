@@ -8,6 +8,8 @@ export const sequelize = new Sequelize({
 });
 
 export async function connectDb(): Promise<void> {
+    // Load models and associations before syncing
+    await import('../models');
     await sequelize.authenticate();
     await sequelize.sync();
     console.log('Database connected');
