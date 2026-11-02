@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import type { CreateQuizPayload } from '@/types/quiz';
+import type { CreateQuizPayload, Quiz } from '@/types/quiz';
 
 const text = z.string().trim().min(1, 'Required').max(255, 'Max 255 characters');
 
@@ -96,6 +96,38 @@ export function toPayload(values: QuizFormValues): CreateQuizPayload {
         };
       }
       return question;
+    }),
+  };
+}
+
+// Map an API quiz to form values (reverse of toPayload)
+export function toFormValues(quiz: Quiz): QuizFormValues {
+  return {
+    title: quiz.title,
+    questions: quiz.questions.map((question): QuestionFormValues => {
+      switch (question.type) {
+        case 'boolean':
+          return {
+            type: 'boolean',
+            text: question.text,
+            correctAnswer: question.correctAnswer,
+          };
+        case 'input':
+          return {
+            type: 'input',
+            text: question.text,
+            correctAnswer: question.correctAnswer,
+          };
+        case 'checkbox':
+          return {
+            type: 'checkbox',
+            text: question.text,
+            options: question.options.map((option) => ({
+              text: option,
+              correct: question.correctAnswer.includes(option),
+            })),
+          };
+      }
     }),
   };
 }

@@ -39,3 +39,9 @@ export const createQuiz = (payload: CreateQuizPayload) =>
 
 export const deleteQuiz = (id: number | string) =>
   request<void>(`/quizzes/${id}`, { method: 'DELETE' });
+
+export const updateQuiz = (id: number | string, payload: CreateQuizPayload) =>
+  request<Quiz>(`/quizzes/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(payload),
+  });
