@@ -17,3 +17,12 @@ export async function createQuiz(req: Request, res: Response, next: NextFunction
         next(error);
     }
 }
+
+export async function getQuizzes(_req: Request, res: Response, next: NextFunction) {
+    try {
+        const quizzes = await quizService.getQuizzes();
+        res.json(quizzes);
+    } catch (error) {
+        next(error);
+    }
+}
