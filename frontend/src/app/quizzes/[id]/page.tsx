@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import QuestionView from '@/components/QuestionView';
+import QuizViewer from '@/components/QuizViewer';
 import { pixelButtonClasses } from '@/components/ui/PixelButton';
 import { ApiError, getQuiz } from '@/lib/api';
 
@@ -38,13 +38,7 @@ async function QuizContent({ params }: QuizDetailPageProps) {
                 </p>
             </div>
 
-            <ol className="flex flex-col gap-6">
-                {quiz.questions.map((question, index) => (
-                    <li key={question.id}>
-                        <QuestionView question={question} index={index} />
-                    </li>
-                ))}
-            </ol>
+            <QuizViewer quiz={quiz} />
         </>
     );
 }
