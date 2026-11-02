@@ -1,6 +1,12 @@
 import type { ApiErrorBody, CreateQuizPayload, Quiz, QuizListItem } from '@/types/quiz';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000';
+const PUBLIC_API_URL =
+    process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000';
+
+const API_URL =
+    typeof window === 'undefined'
+        ? (process.env.API_URL ?? PUBLIC_API_URL)
+        : PUBLIC_API_URL;
 
 export class ApiError extends Error {
   status: number;
