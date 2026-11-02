@@ -71,6 +71,7 @@ export default function QuizList({ initialQuizzes }: QuizListProps) {
                 <QuizCardMenu
                   disabled={deletingId === quiz.id}
                   onDelete={() => handleDelete(quiz.id)}
+                  editHref={`/quizzes/${quiz.id}/edit`}
                 />
               }
             >

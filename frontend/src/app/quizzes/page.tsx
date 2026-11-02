@@ -14,7 +14,9 @@ async function QuizzesContent() {
   const quizzes = await getQuizzes();
 
   // Key remounts the list when quizzes change, so its local state resets
-  const listKey = quizzes.map((quiz) => quiz.id).join('-');
+  const listKey = quizzes
+    .map((quiz) => `${quiz.id}:${quiz.title}:${quiz.questionsCount}`)
+    .join('|');
 
   return <QuizList key={listKey} initialQuizzes={quizzes} />;
 }

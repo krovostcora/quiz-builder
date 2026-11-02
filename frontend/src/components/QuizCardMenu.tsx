@@ -1,15 +1,17 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import PixelButton from '@/components/ui/PixelButton';
+import Link from 'next/link';
+import PixelButton, { pixelButtonClasses } from '@/components/ui/PixelButton';
 import { DotsIcon } from '@/components/ui/PixelIcons';
 
 interface QuizCardMenuProps {
+  editHref: string;
   onDelete: () => void;
   disabled?: boolean;
 }
 
-export default function QuizCardMenu({ onDelete, disabled }: QuizCardMenuProps) {
+export default function QuizCardMenu({ editHref, onDelete, disabled }: QuizCardMenuProps) {
   const [open, setOpen] = useState(false);
   const [confirming, setConfirming] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -74,8 +76,17 @@ export default function QuizCardMenu({ onDelete, disabled }: QuizCardMenuProps) 
       {open && (
         <div
           role="menu"
-          className="border-ink bg-surface shadow-pixel absolute top-full right-0 z-10 mt-2 border-4 p-2"
+          className="border-ink bg-surface shadow-pixel absolute top-full right-0 z-10 mt-2 flex flex-col gap-2 border-4 p-2"
         >
+          <Link
+            role="menuitem"
+            href={editHref}
+            // The cached page stays mounted, so close the menu explicitly
+            onClick={() => setOpen(false)}
+            className={pixelButtonClasses('default', 'sm', 'text-center whitespace-nowrap')}
+          >
+            Edit
+          </Link>
           <PixelButton
             role="menuitem"
             variant="danger"

@@ -36,7 +36,7 @@ async function QuizContent({ params }: QuizDetailPageProps) {
         </p>
       </div>
 
-      <QuizViewer quiz={quiz} />
+      <QuizViewer key={quiz.updatedAt} quiz={quiz} />
     </>
   );
 }

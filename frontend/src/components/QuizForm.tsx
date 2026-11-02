@@ -9,27 +9,34 @@ import QuestionEditor from '@/components/QuestionEditor';
 import PixelButton, { pixelButtonClasses } from '@/components/ui/PixelButton';
 import PixelCard from '@/components/ui/PixelCard';
 import PixelInput from '@/components/ui/PixelInput';
-import { ApiError, createQuiz } from '@/lib/api';
+import { useUnsavedChangesWarning } from '@/hooks/useUnsavedChangesWarning';
+import { ApiError, createQuiz, updateQuiz } from '@/lib/api';
 import {
   createEmptyQuestion,
   quizFormSchema,
+  toFormValues,
   toPayload,
   type QuestionFormValues,
   type QuizFormValues,
 } from '@/lib/schemas/quiz';
+import type { Quiz } from '@/types/quiz';
 
 type ArrayError = { message?: string; root?: { message?: string } };
 
-export default function QuizForm() {
+type QuizFormProps = {
+  // When provided, the form edits this quiz instead of creating a new one
+  quiz?: Quiz;
+};
+
+export default function QuizForm({ quiz }: QuizFormProps) {
   const router = useRouter();
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   const methods = useForm<QuizFormValues>({
     resolver: zodResolver(quizFormSchema),
-    defaultValues: {
-      title: '',
-      questions: [createEmptyQuestion('boolean')],
-    },
+    defaultValues: quiz
+      ? toFormValues(quiz)
+      : { title: '', questions: [createEmptyQuestion('boolean')] },
   });
 
   const {
@@ -37,13 +44,15 @@ export default function QuizForm() {
     control,
     getValues,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isDirty },
   } = methods;
 
   const { fields, append, remove, update } = useFieldArray({
     control,
     name: 'questions',
   });
+
+  useUnsavedChangesWarning(Boolean(quiz) && isDirty);
 
   const questionsError = errors.questions as unknown as ArrayError | undefined;
   const questionsMessage = questionsError?.root?.message ?? questionsError?.message;
@@ -58,9 +67,14 @@ export default function QuizForm() {
   async function onSubmit(values: QuizFormValues) {
     setSubmitError(null);
     try {
-      await createQuiz(toPayload(values));
-      router.push('/quizzes');
-      // Refetch server data so the new quiz appears in the list
+      if (quiz) {
+        await updateQuiz(quiz.id, toPayload(values));
+        router.push(`/quizzes/${quiz.id}`);
+      } else {
+        await createQuiz(toPayload(values));
+        router.push('/quizzes');
+      }
+      // Refetch server data so lists and pages show the latest version
       router.refresh();
     } catch (error) {
       setSubmitError(
@@ -113,9 +127,18 @@ export default function QuizForm() {
 
         <div className="flex flex-wrap items-center gap-4">
           <PixelButton type="submit" variant="accent" disabled={isSubmitting}>
-            {isSubmitting ? 'Creating...' : 'Create quiz'}
+            {quiz
+              ? isSubmitting
+                ? 'Saving...'
+                : 'Save changes'
+              : isSubmitting
+                ? 'Creating...'
+                : 'Create quiz'}
           </PixelButton>
-          <Link href="/quizzes" className={pixelButtonClasses('default', 'md')}>
+          <Link
+            href={quiz ? `/quizzes/${quiz.id}` : '/quizzes'}
+            className={pixelButtonClasses('default', 'md')}
+          >
             Cancel
           </Link>
         </div>
