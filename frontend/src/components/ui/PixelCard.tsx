@@ -22,7 +22,7 @@ export default function PixelCard({
   ...props
 }: PixelCardProps) {
   return (
-    <div className={`border-ink shadow-pixel border-4 bg-surface ${className}`} {...props}>
+    <div className={`border-ink shadow-pixel bg-surface border-4 ${className}`} {...props}>
       <div
         className={`border-ink flex min-h-6 items-center justify-between gap-2 border-b-4 px-3 py-2 ${strips[strip]}`}
       >

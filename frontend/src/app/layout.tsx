@@ -5,49 +5,39 @@ import Header from '@/components/Header';
 import './globals.css';
 
 const pressStart = Press_Start_2P({
-    weight: '400',
-    subsets: ['latin', 'cyrillic'],
-    variable: '--font-press-start',
-    display: 'swap',
+  weight: '400',
+  subsets: ['latin', 'cyrillic'],
+  variable: '--font-press-start',
+  display: 'swap',
 });
 
 const vt323 = VT323({
-    weight: '400',
-    subsets: ['latin', 'vietnamese'],
-    variable: '--font-vt323',
-    display: 'swap',
+  weight: '400',
+  subsets: ['latin', 'vietnamese'],
+  variable: '--font-vt323',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
-    title: 'Quiz Builder',
-    description: 'Create and browse your quizzes',
+  title: 'Quiz Builder',
+  description: 'Create and browse your quizzes',
 };
 
 // Runs before first paint: saved theme, otherwise the system one
 const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.dataset.theme=t}catch(e){}})();`;
 
-export default function RootLayout({
-                                       children,
-                                   }: Readonly<{ children: React.ReactNode }>) {
-    return (
-        <html
-            lang="en"
-            className={`${pressStart.variable} ${vt323.variable}`}
-            suppressHydrationWarning
-        >
-        <head>
-            <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-        </head>
-        <body className="flex min-h-screen flex-col" suppressHydrationWarning>
-        <Suspense
-            fallback={<div className="h-20 border-b-4 border-ink bg-mint-200" />}
-        >
-            <Header />
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  return (
+    <html lang="en" className={`${pressStart.variable} ${vt323.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
+      <body className="flex min-h-screen flex-col" suppressHydrationWarning>
+        <Suspense fallback={<div className="border-ink bg-mint-200 h-20 border-b-4" />}>
+          <Header />
         </Suspense>
-        <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-8">
-            {children}
-        </main>
-        </body>
-        </html>
-    );
+        <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-8">{children}</main>
+      </body>
+    </html>
+  );
 }

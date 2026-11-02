@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import QuizForm from '@/components/QuizForm';
@@ -6,6 +7,12 @@ import { pixelButtonClasses } from '@/components/ui/PixelButton';
 export const metadata: Metadata = {
     title: 'Create quiz | Quiz Builder',
 };
+
+function FormFallback() {
+    return (
+        <p className="animate-pulse font-pixel text-xs text-ink-soft">Loading...</p>
+    );
+}
 
 export default function CreateQuizPage() {
     return (
@@ -18,7 +25,10 @@ export default function CreateQuizPage() {
 
             <h1 className="font-pixel text-lg text-ink sm:text-2xl">Create quiz</h1>
 
-            <QuizForm />
+            {/* useFieldArray generates random ids, so it must stream (Cache Components) */}
+            <Suspense fallback={<FormFallback />}>
+                <QuizForm />
+            </Suspense>
         </section>
     );
 }
