@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import {connectDb} from './config/database';
 import {quizRouter} from './routes/quizRoutes';
+import { errorHandler, notFoundHandler } from './middleware/errorHandler';
 
 dotenv.config();
 
@@ -12,6 +13,8 @@ const port = Number(process.env.PORT) || 4000;
 app.use(cors({origin: process.env.CLIENT_URL}));
 app.use(express.json());
 app.use('/quizzes', quizRouter);
+app.use(notFoundHandler);
+app.use(errorHandler);
 
 app.get('/health', (_req, res) => {
     res.json({status: 'ok'});
