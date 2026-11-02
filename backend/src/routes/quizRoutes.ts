@@ -1,4 +1,4 @@
-import {Router} from 'express';
+import { Router } from 'express';
 import * as quizController from '../controllers/quizController';
 
 export const quizRouter = Router();
