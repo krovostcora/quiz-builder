@@ -44,3 +44,7 @@ export const createQuizSchema = z.object({
 });
 
 export type CreateQuizInput = z.infer<typeof createQuizSchema>;
+
+// Update replaces the whole quiz, so it follows the same rules as create
+export const updateQuizSchema = createQuizSchema;
+export type UpdateQuizInput = CreateQuizInput;

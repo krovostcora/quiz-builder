@@ -9,4 +9,6 @@ quizRouter.get('/', quizController.getQuizzes);
 
 quizRouter.get('/:id', quizController.getQuizById);
 
+quizRouter.put('/:id', quizController.updateQuiz);
+
 quizRouter.delete('/:id', quizController.deleteQuiz);

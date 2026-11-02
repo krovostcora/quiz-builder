@@ -11,7 +11,7 @@ const app = express();
 const port = Number(process.env.PORT) || 4000;
 const clientUrl = process.env.CLIENT_URL ?? 'http://localhost:3000';
 
-app.use(cors({origin: clientUrl, methods: ['GET', 'POST', 'DELETE']}));
+app.use(cors({origin: clientUrl, methods: ['GET', 'POST', 'PUT', 'DELETE']}));
 app.use(express.json());
 
 app.get('/health', (_req, res) => {
